@@ -23,15 +23,13 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createUser(@RequestBody User user) {
-//        return ResponseEntity.ok(userService.createUser(user));
-//        return new ResponseEntity<>(userService.createUser(user), HttpStatus.CREATED);
+    public ResponseEntity<User> createUser(@RequestBody User user) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(userService.createUser(user));
     }
 
-    @GetMapping("{userId}")
-    public User getUserById(@PathVariable Long userId) {
-        return userService.getUserById(userId);
+    @GetMapping("{id}")
+    public User getUserById(@PathVariable Long id) {
+        return userService.getUserById(id);
     }
 }
