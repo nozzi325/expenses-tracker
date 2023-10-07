@@ -36,11 +36,4 @@ public class UserService {
     public User getUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
-
-    public User updateUser(Long id, User user) {
-       User originalUser = getUserById(id);
-       originalUser.setPassword(passwordEncoder.encode(user.getPassword()));
-       originalUser.setEmail(user.getEmail());
-       return userRepository.save(originalUser);
-    }
 }
