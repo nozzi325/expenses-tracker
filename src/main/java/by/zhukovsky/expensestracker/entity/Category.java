@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "transaction_categories")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class TransactionCategory {
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

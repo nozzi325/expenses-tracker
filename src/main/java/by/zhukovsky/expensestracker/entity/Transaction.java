@@ -33,12 +33,12 @@ public class Transaction {
     private User user;
     @ManyToOne
     @JoinColumn(name = "category_id")
-    private TransactionCategory category;
+    private Category category;
 
     public Transaction() {
     }
 
-    public Transaction(TransactionType type, double amount, Date date, String description, User user, TransactionCategory category) {
+    public Transaction(TransactionType type, double amount, Date date, String description, User user, Category category) {
         this.type = type;
         this.amount = amount;
         this.date = date;
@@ -95,11 +95,11 @@ public class Transaction {
         this.user = user;
     }
 
-    public TransactionCategory getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(TransactionCategory category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 }

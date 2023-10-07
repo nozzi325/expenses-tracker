@@ -2,9 +2,9 @@ package by.zhukovsky.expensestracker.service;
 
 import by.zhukovsky.expensestracker.dto.TransactionRequest;
 import by.zhukovsky.expensestracker.entity.Transaction;
-import by.zhukovsky.expensestracker.entity.TransactionCategory;
+import by.zhukovsky.expensestracker.entity.Category;
 import by.zhukovsky.expensestracker.entity.User;
-import by.zhukovsky.expensestracker.repository.TransactionCategoryRepository;
+import by.zhukovsky.expensestracker.repository.CategoryRepository;
 import by.zhukovsky.expensestracker.repository.TransactionRepository;
 import by.zhukovsky.expensestracker.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -16,11 +16,11 @@ import java.util.List;
 public class TransactionService {
     private final TransactionRepository transactionRepository;
     private final UserRepository userRepository;
-    private final TransactionCategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
 
     public TransactionService(TransactionRepository transactionRepository,
                               UserRepository userRepository,
-                              TransactionCategoryRepository categoryRepository) {
+                              CategoryRepository categoryRepository) {
         this.transactionRepository = transactionRepository;
         this.userRepository = userRepository;
         this.categoryRepository = categoryRepository;
@@ -38,7 +38,7 @@ public class TransactionService {
     public Transaction createTransaction(TransactionRequest request) {
         User user = userRepository.findById(request.userId())
                 .orElseThrow(() -> new EntityNotFoundException("User with id " + request.userId() + " not found"));
-        TransactionCategory category = categoryRepository.findById(request.categoryId())
+        Category category = categoryRepository.findById(request.categoryId())
                 .orElseThrow(() -> new EntityNotFoundException("Category with id " + request.categoryId() + " not found"));
 
         Transaction transaction = new Transaction(request.type(), request.amount(),
@@ -51,7 +51,7 @@ public class TransactionService {
 
     public Transaction updateTransaction(Long id, TransactionRequest request) {
         Transaction transaction = getTransactionById(id);
-        TransactionCategory category = categoryRepository.findById(request.categoryId())
+        Category category = categoryRepository.findById(request.categoryId())
                 .orElseThrow(() -> new EntityNotFoundException("Category with id " + request.categoryId() + " not found"));
 
         transaction.setAmount(request.amount());
