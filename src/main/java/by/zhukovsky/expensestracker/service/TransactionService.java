@@ -51,13 +51,16 @@ public class TransactionService {
 
     public Transaction updateTransaction(Long id, TransactionRequest request) {
         Transaction transaction = getTransactionById(id);
-        Category category = categoryRepository.findById(request.categoryId())
-                .orElseThrow(() -> new EntityNotFoundException("Category with id " + request.categoryId() + " not found"));
+
+        if (transaction.getCategory().getId() != request.categoryId()) {
+            Category category = categoryRepository.findById(request.categoryId())
+                    .orElseThrow(() -> new EntityNotFoundException("Category with id " + request.categoryId() + " not found"));
+            transaction.setCategory(category);
+        }
 
         transaction.setAmount(request.amount());
         transaction.setDescription(request.description());
         transaction.setDate(request.dateAt());
-        transaction.setCategory(category);
 
         return transactionRepository.save(transaction);
     }
