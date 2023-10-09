@@ -1,7 +1,7 @@
 package by.zhukovsky.expensestracker.controller;
 
 import by.zhukovsky.expensestracker.dto.TransactionRequest;
-import by.zhukovsky.expensestracker.entity.Transaction;
+import by.zhukovsky.expensestracker.entity.transaction.Transaction;
 import by.zhukovsky.expensestracker.service.TransactionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

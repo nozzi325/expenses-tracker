@@ -1,9 +1,9 @@
 package by.zhukovsky.expensestracker.service;
 
 import by.zhukovsky.expensestracker.dto.TransactionRequest;
-import by.zhukovsky.expensestracker.entity.Transaction;
+import by.zhukovsky.expensestracker.entity.transaction.Transaction;
 import by.zhukovsky.expensestracker.entity.Category;
-import by.zhukovsky.expensestracker.entity.User;
+import by.zhukovsky.expensestracker.entity.user.User;
 import by.zhukovsky.expensestracker.repository.CategoryRepository;
 import by.zhukovsky.expensestracker.repository.TransactionRepository;
 import by.zhukovsky.expensestracker.repository.UserRepository;

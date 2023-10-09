@@ -1,6 +1,6 @@
 package by.zhukovsky.expensestracker.repository;
 
-import by.zhukovsky.expensestracker.entity.Transaction;
+import by.zhukovsky.expensestracker.entity.transaction.Transaction;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
