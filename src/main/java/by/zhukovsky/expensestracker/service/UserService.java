@@ -48,4 +48,12 @@ public class UserService {
        originalUser.setEmail(user.getEmail());
        return userRepository.save(originalUser);
     }
+
+    public void enableUser(User user) {
+        if (user.getEnabled()) {
+            throw new IllegalStateException("User already enabled");
+        }
+        user.setEnabled(true);
+        userRepository.save(user);
+    }
 }
