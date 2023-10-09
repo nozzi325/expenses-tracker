@@ -29,6 +29,12 @@ services:
       - postgres
     restart: unless-stopped
 
+  maildev:
+    image: djfarrelly/maildev
+    ports:
+      - "1080:80"
+      - "1025:25"
+
 networks:
   postgres:
     driver: bridge
