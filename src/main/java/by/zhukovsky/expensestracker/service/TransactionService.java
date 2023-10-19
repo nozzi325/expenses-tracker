@@ -1,29 +1,30 @@
 package by.zhukovsky.expensestracker.service;
 
 import by.zhukovsky.expensestracker.dto.TransactionRequest;
-import by.zhukovsky.expensestracker.entity.Transaction;
 import by.zhukovsky.expensestracker.entity.Category;
+import by.zhukovsky.expensestracker.entity.Transaction;
 import by.zhukovsky.expensestracker.entity.User;
-import by.zhukovsky.expensestracker.repository.CategoryRepository;
 import by.zhukovsky.expensestracker.repository.TransactionRepository;
-import by.zhukovsky.expensestracker.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
 public class TransactionService {
+    private final UserService userService;
+    private final CategoryService categoryService;
     private final TransactionRepository transactionRepository;
-    private final UserRepository userRepository;
-    private final CategoryRepository categoryRepository;
 
     public TransactionService(TransactionRepository transactionRepository,
-                              UserRepository userRepository,
-                              CategoryRepository categoryRepository) {
+                              UserService userService,
+                              CategoryService categoryService) {
         this.transactionRepository = transactionRepository;
-        this.userRepository = userRepository;
-        this.categoryRepository = categoryRepository;
+        this.userService = userService;
+        this.categoryService = categoryService;
     }
 
     public List<Transaction> getAllTransactions() {
@@ -36,14 +37,15 @@ public class TransactionService {
     }
 
     public Transaction createTransaction(TransactionRequest request) {
-        User user = userRepository.findById(request.userId())
-                .orElseThrow(() -> new EntityNotFoundException("User with id " + request.userId() + " not found"));
-        Category category = categoryRepository.findById(request.categoryId())
-                .orElseThrow(() -> new EntityNotFoundException("Category with id " + request.categoryId() + " not found"));
+        User user = userService.getUserById(request.userId());
+        Category category = categoryService.getCategoryById(request.categoryId());
 
-        Transaction transaction = new Transaction(request.type(), request.amount(),
-                request.dateAt(), request.description(),
-                user, category);
+        Transaction transaction = new Transaction(request.type(),
+                request.amount(),
+                request.dateAt(),
+                request.description(),
+                user,
+                category);
 
         transactionRepository.save(transaction);
         return transaction;
@@ -53,8 +55,7 @@ public class TransactionService {
         Transaction transaction = getTransactionById(id);
 
         if (transaction.getCategory().getId() != request.categoryId()) {
-            Category category = categoryRepository.findById(request.categoryId())
-                    .orElseThrow(() -> new EntityNotFoundException("Category with id " + request.categoryId() + " not found"));
+            Category category = categoryService.getCategoryById(request.categoryId());
             transaction.setCategory(category);
         }
 
@@ -72,4 +73,27 @@ public class TransactionService {
         transactionRepository.deleteById(id);
     }
 
+    public Page<Transaction> getTransactionsForUser(
+            Long userId,
+            Pageable pageable,
+            LocalDate startDate,
+            LocalDate endDate,
+            Long categoryId
+    ) {
+        if (!userService.existsById(userId)) {
+            throw new EntityNotFoundException("User with id '" + userId + "' not found");
+        }
+
+        if (startDate != null && endDate != null) {
+            if (categoryId != null) {
+                return transactionRepository.findByUserIdAndDateBetweenAndCategoryId(userId,
+                        startDate, endDate, categoryId, pageable);
+            }
+            return transactionRepository.findByUserIdAndDateBetween(userId, startDate, endDate, pageable);
+        } else if (categoryId != null) {
+            return transactionRepository.findByUserIdAndCategoryId(userId, categoryId, pageable);
+        } else {
+            return transactionRepository.findByUserId(userId, pageable);
+        }
+    }
 }
