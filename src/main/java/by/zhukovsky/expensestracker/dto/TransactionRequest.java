@@ -2,12 +2,12 @@ package by.zhukovsky.expensestracker.dto;
 
 import by.zhukovsky.expensestracker.entity.TransactionType;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public record TransactionRequest (
         TransactionType type,
         double amount,
-        Date dateAt,
+        LocalDate dateAt,
         String description,
         Long userId,
         Long categoryId
