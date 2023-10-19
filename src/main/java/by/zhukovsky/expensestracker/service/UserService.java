@@ -2,6 +2,8 @@ package by.zhukovsky.expensestracker.service;
 
 import by.zhukovsky.expensestracker.entity.User;
 import by.zhukovsky.expensestracker.repository.UserRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
@@ -24,8 +26,8 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public Page<User> getAllUsers(Pageable pageable) {
+        return userRepository.findAll(pageable);
     }
 
     public User getUserById(Long userId) {

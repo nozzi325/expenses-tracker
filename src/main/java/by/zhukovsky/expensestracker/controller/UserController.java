@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/users")
@@ -33,8 +32,8 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<List<User>> getUsers() {
-        return ResponseEntity.ok(userService.getAllUsers());
+    public Page<User> getUsers(Pageable pageable) {
+        return userService.getAllUsers(pageable);
     }
 
     @GetMapping("{id}")

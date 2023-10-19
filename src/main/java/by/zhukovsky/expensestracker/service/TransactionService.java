@@ -11,7 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Service
 public class TransactionService {
@@ -27,8 +26,8 @@ public class TransactionService {
         this.categoryService = categoryService;
     }
 
-    public List<Transaction> getAllTransactions() {
-        return transactionRepository.findAll();
+    public Page<Transaction> getAllTransactions(Pageable pageable) {
+        return transactionRepository.findAll(pageable);
     }
 
     public Transaction getTransactionById(Long id) {
