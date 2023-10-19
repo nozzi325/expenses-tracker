@@ -43,4 +43,8 @@ public class UserService {
        originalUser.setEmail(user.getEmail());
        return userRepository.save(originalUser);
     }
+
+    public boolean existsById(Long userId) {
+        return userRepository.existsById(userId);
+    }
 }
