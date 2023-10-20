@@ -36,8 +36,8 @@ public class TransactionService {
     }
 
     public Transaction createTransaction(TransactionRequest request) {
-        User user = userService.getUserById(request.userId());
-        Category category = categoryService.getCategoryById(request.categoryId());
+        User user = userService.getReferenceById(request.userId());
+        Category category = categoryService.getReferenceById(request.categoryId());
 
         Transaction transaction = new Transaction(request.type(),
                 request.amount(),
