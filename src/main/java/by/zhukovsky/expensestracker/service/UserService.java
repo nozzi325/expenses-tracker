@@ -3,11 +3,11 @@ package by.zhukovsky.expensestracker.service;
 import by.zhukovsky.expensestracker.entity.user.User;
 import by.zhukovsky.expensestracker.repository.UserRepository;
 import jakarta.persistence.EntityExistsException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class UserService {
@@ -29,8 +29,8 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public Page<User> getAllUsers(Pageable pageable) {
+        return userRepository.findAll(pageable);
     }
 
     public User getUserById(Long userId) {
@@ -56,5 +56,17 @@ public class UserService {
         }
         user.setEnabled(true);
         userRepository.save(user);
+    }
+
+    public boolean existsById(Long userId) {
+        return userRepository.existsById(userId);
+    }
+
+    public User getReferenceById(Long userId) {
+        User user = userRepository.getReferenceById(userId);
+        if (user == null) {
+            throw new EntityNotFoundException("User with id " + userId + " not found");
+        }
+        return user;
     }
 }

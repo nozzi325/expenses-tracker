@@ -46,4 +46,12 @@ public class CategoryService {
         }
         repository.deleteById(id);
     }
+
+    public Category getReferenceById(Long id) {
+        Category category = repository.getReferenceById(id);
+        if (category == null) {
+            throw new EntityNotFoundException("Category with id " + id + " not found");
+        }
+        return category;
+    }
 }

@@ -15,6 +15,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -27,7 +28,7 @@ public class Transaction {
     @Enumerated(EnumType.STRING)
     private TransactionType type;
     private double amount;
-    private Date date;
+    private LocalDate date;
     private String description;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -40,7 +41,7 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(TransactionType type, double amount, Date date, String description, User user, Category category) {
+    public Transaction(TransactionType type, double amount, LocalDate date, String description, User user, Category category) {
         this.type = type;
         this.amount = amount;
         this.date = date;
@@ -73,11 +74,11 @@ public class Transaction {
         this.amount = amount;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
