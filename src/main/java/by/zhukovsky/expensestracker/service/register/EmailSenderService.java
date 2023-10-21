@@ -1,4 +1,4 @@
-package by.zhukovsky.expensestracker.service;
+package by.zhukovsky.expensestracker.service.register;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;

@@ -1,4 +1,4 @@
-package by.zhukovsky.expensestracker.service;
+package by.zhukovsky.expensestracker.service.register;
 
 import by.zhukovsky.expensestracker.entity.ConfirmationToken;
 import by.zhukovsky.expensestracker.entity.user.User;

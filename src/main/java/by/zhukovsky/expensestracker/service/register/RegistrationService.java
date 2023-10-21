@@ -1,9 +1,10 @@
-package by.zhukovsky.expensestracker.service;
+package by.zhukovsky.expensestracker.service.register;
 
 import by.zhukovsky.expensestracker.dto.RegistrationRequest;
 import by.zhukovsky.expensestracker.entity.ConfirmationToken;
 import by.zhukovsky.expensestracker.entity.user.User;
 import by.zhukovsky.expensestracker.entity.user.UserRole;
+import by.zhukovsky.expensestracker.service.UserService;
 import by.zhukovsky.expensestracker.utils.EmailValidator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

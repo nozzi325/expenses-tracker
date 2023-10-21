@@ -1,7 +1,7 @@
 package by.zhukovsky.expensestracker.controller;
 
 import by.zhukovsky.expensestracker.dto.RegistrationRequest;
-import by.zhukovsky.expensestracker.service.RegistrationService;
+import by.zhukovsky.expensestracker.service.register.RegistrationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
