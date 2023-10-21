@@ -1,4 +1,4 @@
-package by.zhukovsky.expensestracker.controller;
+package by.zhukovsky.expensestracker.exception;
 
 import by.zhukovsky.expensestracker.dto.ErrorResponse;
 import jakarta.persistence.EntityExistsException;
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import java.time.LocalDateTime;
 
 @ControllerAdvice
-public class ExceptionControllerAdvice {
-    Logger logger = LoggerFactory.getLogger(ExceptionControllerAdvice.class);
+public class ExceptionHandlerAdvice {
+    Logger logger = LoggerFactory.getLogger(ExceptionHandlerAdvice.class);
 
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<ErrorResponse> exceptionEntityNotFoundHandler(EntityNotFoundException e) {
@@ -26,6 +26,12 @@ public class ExceptionControllerAdvice {
     public ResponseEntity<ErrorResponse> exceptionEntityExistsHandler(EntityExistsException e) {
         ErrorResponse error = createErrorResponse(e.getMessage());
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ConfirmationTokenExpiredException.class)
+    public ResponseEntity<ErrorResponse> exceptionConfirmationTokenExpiredHandler(ConfirmationTokenExpiredException e) {
+        ErrorResponse error = createErrorResponse(e.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.GONE);
     }
 
     private ErrorResponse createErrorResponse(String message) {

@@ -4,9 +4,9 @@ spring:
   application:
     name: expenses-app
   datasource:
-    password: password
     url: jdbc:postgresql://localhost:5432/expenses
-    username: postgres
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -15,6 +15,28 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     show-sql: true
+    generate-ddl: true
+  mail:
+    host: localhost
+    port: 1025
+    username: ${MAIL_USER}
+    password: ${MAIL_PASSWORD}
 
-security:
-  ignored=/**:
+properties:
+  mail:
+    smtp:
+      ssl:
+        trust: "*"
+      auth: true
+      starttls:
+        enable: true
+      connectiontimeout: 5000
+      timeout: 3000
+      writetimeout: 5000
+
+
+secret:
+  jwt:
+    secretKey: ${JWT_SECRET_KEY}
+    issuer: ${JWT_ISSUER}
+    tokenValidityDays: ${JWT_VALIDITY_DAYS}

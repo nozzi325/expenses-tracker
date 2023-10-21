@@ -1,6 +1,6 @@
 package by.zhukovsky.expensestracker.dto;
 
-import by.zhukovsky.expensestracker.entity.TransactionType;
+import by.zhukovsky.expensestracker.entity.transaction.TransactionType;
 
 import java.util.Date;
 

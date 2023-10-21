@@ -1,5 +1,7 @@
-package by.zhukovsky.expensestracker.entity;
+package by.zhukovsky.expensestracker.entity.transaction;
 
+import by.zhukovsky.expensestracker.entity.Category;
+import by.zhukovsky.expensestracker.entity.user.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.Entity;
