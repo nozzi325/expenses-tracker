@@ -4,9 +4,9 @@ spring:
   application:
     name: expenses-app
   datasource:
-    password: password
     url: jdbc:postgresql://localhost:5432/expenses
-    username: postgres
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -19,8 +19,8 @@ spring:
   mail:
     host: localhost
     port: 1025
-    username: hello
-    password: hello
+    username: ${MAIL_USER}
+    password: ${MAIL_PASSWORD}
 
 properties:
   mail:
@@ -34,5 +34,9 @@ properties:
       timeout: 3000
       writetimeout: 5000
 
-security:
-  ignored=/**:
+
+secret:
+  jwt:
+    secretKey: ${JWT_SECRET_KEY}
+    issuer: ${JWT_ISSUER}
+    tokenValidityDays: ${JWT_VALIDITY_DAYS}
