@@ -7,7 +7,7 @@ public record UserDTO(
         String firstName,
         String lastName,
         String email,
-        String password,
-        List<String> roles
+        List<String> roles,
+        boolean enabled
 ) {
 }

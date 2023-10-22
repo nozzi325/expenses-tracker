@@ -17,11 +17,11 @@ public class UserDTOMapper implements Function<User, UserDTO> {
                 user.getFirstName(),
                 user.getLastName(),
                 user.getUsername(),
-                user.getPassword(),
                 user.getAuthorities()
                         .stream()
                         .map(GrantedAuthority::getAuthority)
-                        .collect(Collectors.toList())
+                        .collect(Collectors.toList()),
+                user.getEnabled()
         );
     }
 }
