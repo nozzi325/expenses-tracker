@@ -48,10 +48,10 @@ public class CategoryService {
     }
 
     public Category getReferenceById(Long id) {
-        Category category = repository.getReferenceById(id);
-        if (category == null) {
+        if (!repository.existsById(id)) {
             throw new EntityNotFoundException("Category with id " + id + " not found");
         }
+        Category category = repository.getReferenceById(id);
         return category;
     }
 }

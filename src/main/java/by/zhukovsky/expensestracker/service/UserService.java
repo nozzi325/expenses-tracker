@@ -63,10 +63,10 @@ public class UserService {
     }
 
     public User getReferenceById(Long userId) {
-        User user = userRepository.getReferenceById(userId);
-        if (user == null) {
+        if (!userRepository.existsById(userId)) {
             throw new EntityNotFoundException("User with id " + userId + " not found");
         }
+        User user = userRepository.getReferenceById(userId);
         return user;
     }
 }
