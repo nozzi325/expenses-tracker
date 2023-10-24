@@ -1,6 +1,6 @@
 package by.zhukovsky.expensestracker.exception;
 
-import by.zhukovsky.expensestracker.dto.ErrorResponse;
+import by.zhukovsky.expensestracker.dto.response.ErrorResponse;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import org.slf4j.Logger;

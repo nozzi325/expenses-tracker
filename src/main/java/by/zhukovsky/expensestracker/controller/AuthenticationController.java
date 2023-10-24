@@ -1,7 +1,7 @@
 package by.zhukovsky.expensestracker.controller;
 
-import by.zhukovsky.expensestracker.dto.AuthenticationRequest;
-import by.zhukovsky.expensestracker.dto.AuthenticationResponse;
+import by.zhukovsky.expensestracker.dto.request.AuthenticationRequest;
+import by.zhukovsky.expensestracker.dto.response.AuthenticationResponse;
 import by.zhukovsky.expensestracker.service.auth.AuthenticationService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;

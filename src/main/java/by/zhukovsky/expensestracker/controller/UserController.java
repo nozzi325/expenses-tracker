@@ -1,7 +1,7 @@
 package by.zhukovsky.expensestracker.controller;
 
-import by.zhukovsky.expensestracker.dto.UserDTO;
-import by.zhukovsky.expensestracker.dto.UserUpdateRequest;
+import by.zhukovsky.expensestracker.dto.response.UserDTO;
+import by.zhukovsky.expensestracker.dto.request.UserUpdateRequest;
 import by.zhukovsky.expensestracker.entity.transaction.Transaction;
 import by.zhukovsky.expensestracker.entity.user.User;
 import by.zhukovsky.expensestracker.mapper.UserDTOMapper;

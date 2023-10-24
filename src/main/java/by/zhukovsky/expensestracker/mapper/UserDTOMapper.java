@@ -1,6 +1,6 @@
 package by.zhukovsky.expensestracker.mapper;
 
-import by.zhukovsky.expensestracker.dto.UserDTO;
+import by.zhukovsky.expensestracker.dto.response.UserDTO;
 import by.zhukovsky.expensestracker.entity.user.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;

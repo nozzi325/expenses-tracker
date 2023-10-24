@@ -1,6 +1,6 @@
 package by.zhukovsky.expensestracker.service;
 
-import by.zhukovsky.expensestracker.dto.UserUpdateRequest;
+import by.zhukovsky.expensestracker.dto.request.UserUpdateRequest;
 import by.zhukovsky.expensestracker.entity.user.User;
 import by.zhukovsky.expensestracker.exception.InvalidRequestException;
 import by.zhukovsky.expensestracker.repository.UserRepository;

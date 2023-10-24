@@ -1,6 +1,6 @@
 package by.zhukovsky.expensestracker.service;
 
-import by.zhukovsky.expensestracker.dto.TransactionRequest;
+import by.zhukovsky.expensestracker.dto.request.TransactionRequest;
 import by.zhukovsky.expensestracker.entity.Category;
 import by.zhukovsky.expensestracker.entity.transaction.Transaction;
 import by.zhukovsky.expensestracker.entity.user.User;
