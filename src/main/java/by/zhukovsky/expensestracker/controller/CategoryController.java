@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/categories")
+@RequestMapping("/api/v1/categories")
 public class CategoryController {
     private final CategoryService categoryService;
 
@@ -30,7 +30,7 @@ public class CategoryController {
         return categoryService.getAllCategories();
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public Category getCategoryById(@PathVariable Long id) {
         return categoryService.getCategoryById(id);
     }
@@ -42,16 +42,17 @@ public class CategoryController {
                 .body(categoryService.createCategory(category));
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Category> updateCategory(
             @PathVariable Long id,
-            @RequestBody Category category) {
+            @RequestBody Category category
+    ) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(categoryService.updateCategory(id, category));
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCategory(@PathVariable Long id) {
         categoryService.deleteCategory(id);

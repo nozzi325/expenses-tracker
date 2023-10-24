@@ -92,7 +92,6 @@ public class UserService {
         if (!userRepository.existsById(userId)) {
             throw new EntityNotFoundException("User with id " + userId + " not found");
         }
-        User user = userRepository.getReferenceById(userId);
-        return user;
+        return userRepository.getReferenceById(userId);
     }
 }

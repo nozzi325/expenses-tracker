@@ -28,7 +28,9 @@ public class UserController {
     private final TransactionService transactionService;
     private final UserDTOMapper userDTOMapper;
 
-    public UserController(UserService userService, TransactionService transactionService, UserDTOMapper userDTOMapper) {
+    public UserController(UserService userService,
+                          TransactionService transactionService,
+                          UserDTOMapper userDTOMapper) {
         this.userService = userService;
         this.transactionService = transactionService;
         this.userDTOMapper = userDTOMapper;
@@ -46,8 +48,10 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDTO> updateUser(@PathVariable Long id,
-                                           @RequestBody UserUpdateRequest updateRequest) {
+    public ResponseEntity<UserDTO> updateUser(
+            @PathVariable Long id,
+            @RequestBody UserUpdateRequest updateRequest
+    ) {
         User updatedUser = userService.updateUser(id, updateRequest);
         return ResponseEntity.ok(userDTOMapper.apply(updatedUser));
     }

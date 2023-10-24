@@ -51,7 +51,6 @@ public class CategoryService {
         if (!repository.existsById(id)) {
             throw new EntityNotFoundException("Category with id " + id + " not found");
         }
-        Category category = repository.getReferenceById(id);
-        return category;
+        return repository.getReferenceById(id);
     }
 }
