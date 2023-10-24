@@ -1,6 +1,6 @@
 package by.zhukovsky.expensestracker.mapper;
 
-import by.zhukovsky.expensestracker.dto.UserDTO;
+import by.zhukovsky.expensestracker.dto.response.UserDTO;
 import by.zhukovsky.expensestracker.entity.user.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
@@ -17,11 +17,11 @@ public class UserDTOMapper implements Function<User, UserDTO> {
                 user.getFirstName(),
                 user.getLastName(),
                 user.getUsername(),
-                user.getPassword(),
                 user.getAuthorities()
                         .stream()
                         .map(GrantedAuthority::getAuthority)
-                        .collect(Collectors.toList())
+                        .collect(Collectors.toList()),
+                user.getEnabled()
         );
     }
 }

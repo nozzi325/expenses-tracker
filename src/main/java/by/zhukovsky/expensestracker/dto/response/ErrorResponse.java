@@ -1,4 +1,4 @@
-package by.zhukovsky.expensestracker.dto;
+package by.zhukovsky.expensestracker.dto.response;
 
 import java.time.LocalDateTime;
 

@@ -1,8 +1,8 @@
 package by.zhukovsky.expensestracker.service.auth;
 
-import by.zhukovsky.expensestracker.dto.AuthenticationRequest;
-import by.zhukovsky.expensestracker.dto.AuthenticationResponse;
-import by.zhukovsky.expensestracker.dto.UserDTO;
+import by.zhukovsky.expensestracker.dto.request.AuthenticationRequest;
+import by.zhukovsky.expensestracker.dto.response.AuthenticationResponse;
+import by.zhukovsky.expensestracker.dto.response.UserDTO;
 import by.zhukovsky.expensestracker.entity.user.User;
 import by.zhukovsky.expensestracker.jwt.JWTUtil;
 import by.zhukovsky.expensestracker.mapper.UserDTOMapper;

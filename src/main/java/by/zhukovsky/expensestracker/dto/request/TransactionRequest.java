@@ -1,4 +1,4 @@
-package by.zhukovsky.expensestracker.dto;
+package by.zhukovsky.expensestracker.dto.request;
 
 import by.zhukovsky.expensestracker.entity.transaction.TransactionType;
 

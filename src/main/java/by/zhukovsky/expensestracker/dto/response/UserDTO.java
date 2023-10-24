@@ -1,4 +1,4 @@
-package by.zhukovsky.expensestracker.dto;
+package by.zhukovsky.expensestracker.dto.response;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ public record UserDTO(
         String firstName,
         String lastName,
         String email,
-        String password,
-        List<String> roles
+        List<String> roles,
+        boolean enabled
 ) {
 }

@@ -1,6 +1,6 @@
 package by.zhukovsky.expensestracker.service.register;
 
-import by.zhukovsky.expensestracker.dto.RegistrationRequest;
+import by.zhukovsky.expensestracker.dto.request.RegistrationRequest;
 import by.zhukovsky.expensestracker.entity.ConfirmationToken;
 import by.zhukovsky.expensestracker.entity.user.User;
 import by.zhukovsky.expensestracker.exception.ConfirmationTokenExpiredException;

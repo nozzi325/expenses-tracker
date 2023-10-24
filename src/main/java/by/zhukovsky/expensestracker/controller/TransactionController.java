@@ -1,6 +1,6 @@
 package by.zhukovsky.expensestracker.controller;
 
-import by.zhukovsky.expensestracker.dto.TransactionRequest;
+import by.zhukovsky.expensestracker.dto.request.TransactionRequest;
 import by.zhukovsky.expensestracker.entity.transaction.Transaction;
 import by.zhukovsky.expensestracker.service.TransactionService;
 import org.springframework.data.domain.Page;

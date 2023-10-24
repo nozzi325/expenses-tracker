@@ -1,4 +1,4 @@
-package by.zhukovsky.expensestracker.dto;
+package by.zhukovsky.expensestracker.dto.request;
 
 public record RegistrationRequest(
         String email,
