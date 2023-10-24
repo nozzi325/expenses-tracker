@@ -5,7 +5,7 @@ import by.zhukovsky.expensestracker.entity.Category;
 import by.zhukovsky.expensestracker.entity.transaction.Transaction;
 import by.zhukovsky.expensestracker.entity.user.User;
 import by.zhukovsky.expensestracker.repository.TransactionRepository;
-import jakarta.persistence.EntityNotFoundException;
+import by.zhukovsky.expensestracker.utils.ExceptionHandlingUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -32,7 +32,7 @@ public class TransactionService {
 
     public Transaction getTransactionById(Long id) {
         return transactionRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Transaction with id " + id + " not found"));
+                .orElseThrow(() -> ExceptionHandlingUtils.handleEntityNotFound("Transaction", id));
     }
 
     public Transaction createTransaction(TransactionRequest request) {
@@ -67,7 +67,7 @@ public class TransactionService {
 
     public void deleteTransaction(Long id) {
         if (!transactionRepository.existsById(id)) {
-            throw new EntityNotFoundException("Transaction with id " + id + " not found");
+            ExceptionHandlingUtils.handleEntityNotFound("Transaction", id);
         }
         transactionRepository.deleteById(id);
     }
@@ -80,13 +80,18 @@ public class TransactionService {
             Long categoryId
     ) {
         if (!userService.existsById(userId)) {
-            throw new EntityNotFoundException("User with id '" + userId + "' not found");
+            ExceptionHandlingUtils.handleEntityNotFound("User", userId);
         }
 
         if (startDate != null && endDate != null) {
             if (categoryId != null) {
-                return transactionRepository.findByUserIdAndDateBetweenAndCategoryId(userId,
-                        startDate, endDate, categoryId, pageable);
+                return transactionRepository.findByUserIdAndDateBetweenAndCategoryId(
+                        userId,
+                        startDate,
+                        endDate,
+                        categoryId,
+                        pageable
+                );
             }
             return transactionRepository.findByUserIdAndDateBetween(userId, startDate, endDate, pageable);
         } else if (categoryId != null) {

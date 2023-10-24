@@ -2,8 +2,7 @@ package by.zhukovsky.expensestracker.service;
 
 import by.zhukovsky.expensestracker.entity.Category;
 import by.zhukovsky.expensestracker.repository.CategoryRepository;
-import jakarta.persistence.EntityExistsException;
-import jakarta.persistence.EntityNotFoundException;
+import by.zhukovsky.expensestracker.utils.ExceptionHandlingUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,13 +21,13 @@ public class CategoryService {
 
     public Category getCategoryById(Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Category with " + id + " not found"));
+                .orElseThrow(() -> ExceptionHandlingUtils.handleEntityNotFound("Category", id));
     }
 
     public Category createCategory(Category category) {
         String name = category.getName();
         if (repository.existsCategoryByNameEqualsIgnoreCase(name)) {
-            throw new EntityExistsException("Category '" + name + "' already exists");
+            throw ExceptionHandlingUtils.handleEntityAlreadyExists("Category", name);
         }
         return repository.save(category);
     }
@@ -42,14 +41,14 @@ public class CategoryService {
 
     public void deleteCategory(Long id) {
         if (!repository.existsById(id)) {
-            throw new EntityNotFoundException("Category with id " + id + " not found");
+            ExceptionHandlingUtils.handleEntityNotFound("Category", id);
         }
         repository.deleteById(id);
     }
 
     public Category getReferenceById(Long id) {
         if (!repository.existsById(id)) {
-            throw new EntityNotFoundException("Category with id " + id + " not found");
+            ExceptionHandlingUtils.handleEntityNotFound("Category", id);
         }
         return repository.getReferenceById(id);
     }
