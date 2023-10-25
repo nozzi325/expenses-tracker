@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("api/v1/transactions")
+@RequestMapping("/api/v1/transactions")
 public class TransactionController {
     private final TransactionService transactionService;
 
@@ -31,7 +31,7 @@ public class TransactionController {
         return transactionService.getAllTransactions(pageable);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public Transaction getTransactionById(@PathVariable Long id) {
         return transactionService.getTransactionById(id);
     }
@@ -43,15 +43,17 @@ public class TransactionController {
                 .body(transactionService.createTransaction(request));
     }
 
-    @PutMapping("{id}")
-    public ResponseEntity<Transaction> updateTransaction(@PathVariable Long id,
-                                                         @RequestBody TransactionRequest request) {
+    @PutMapping("/{id}")
+    public ResponseEntity<Transaction> updateTransaction(
+            @PathVariable Long id,
+            @RequestBody TransactionRequest request
+    ) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(transactionService.updateTransaction(id, request));
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteTransaction(@PathVariable Long id) {
         transactionService.deleteTransaction(id);

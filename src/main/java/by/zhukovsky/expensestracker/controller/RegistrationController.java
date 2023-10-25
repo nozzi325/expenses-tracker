@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("api/v1/registration")
+@RequestMapping("/api/v1/registration")
 public class RegistrationController {
     private final RegistrationService registrationService;
 
@@ -27,7 +27,7 @@ public class RegistrationController {
                 .body(registrationService.registerUser(request));
     }
 
-    @GetMapping(path = "confirm")
+    @GetMapping("/confirm")
     public ResponseEntity<String> confirm(@RequestParam("token") String token) {
         return ResponseEntity.ok(registrationService.confirmToken(token));
     }

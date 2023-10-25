@@ -4,10 +4,10 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.time.Instant;
@@ -51,8 +51,8 @@ public class JWTUtil {
     }
 
     public boolean isTokenValid(String jwt, String username) {
-        String subject = getSubject(jwt);
-        return subject.equals(username) && !isTokenExpired(jwt);
+        Claims claims = getClaims(jwt);
+        return username.equals(claims.getSubject()) && !isTokenExpired(claims);
     }
 
     private Claims getClaims(String token) {
@@ -67,9 +67,9 @@ public class JWTUtil {
         return Keys.hmacShaKeyFor(secretKey.getBytes());
     }
 
-    private boolean isTokenExpired(String jwt) {
-        Date today = Date.from(Instant.now());
-        return getClaims(jwt).getExpiration().before(today);
+    private boolean isTokenExpired(Claims claims) {
+        Date expirationTime = claims.getExpiration();
+        return expirationTime.before(Date.from(Instant.now()));
     }
 
     private String buildToken(String subject, Map<String, Object> claims) {

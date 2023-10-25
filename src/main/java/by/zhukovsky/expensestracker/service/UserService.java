@@ -4,6 +4,7 @@ import by.zhukovsky.expensestracker.dto.request.UserUpdateRequest;
 import by.zhukovsky.expensestracker.entity.user.User;
 import by.zhukovsky.expensestracker.exception.InvalidRequestException;
 import by.zhukovsky.expensestracker.repository.UserRepository;
+import by.zhukovsky.expensestracker.utils.ExceptionHandlingUtils;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
@@ -36,12 +37,12 @@ public class UserService {
 
     public User getUserById(Long userId) {
         return userRepository.findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException("User with id " + userId + " not found"));
+                .orElseThrow(() -> ExceptionHandlingUtils.handleEntityNotFound("User", userId));
     }
 
     public User getUserByEmail(String email) {
         return userRepository.findByEmail(email)
-                .orElseThrow(() -> new EntityExistsException("User with email '" + email + "'not found"));
+                .orElseThrow(() -> new EntityNotFoundException("User with email '" + email + "'not found"));
     }
 
     public User updateUser(Long id, UserUpdateRequest updateRequest) {
@@ -58,7 +59,7 @@ public class UserService {
         }
         if (!originalUser.getEmail().equals(updateRequest.email())) {
             if (userRepository.existsByEmailEqualsIgnoreCase(updateRequest.email())) {
-                throw new EntityExistsException("Email '" + updateRequest.email() + "' is already in use");
+                ExceptionHandlingUtils.handleEntityAlreadyExists("Email", updateRequest.email());
             }
             originalUser.setEmail(updateRequest.email());
             fieldsChanged = true;
@@ -90,9 +91,8 @@ public class UserService {
 
     public User getReferenceById(Long userId) {
         if (!userRepository.existsById(userId)) {
-            throw new EntityNotFoundException("User with id " + userId + " not found");
+            ExceptionHandlingUtils.handleEntityNotFound("User", userId);
         }
-        User user = userRepository.getReferenceById(userId);
-        return user;
+        return userRepository.getReferenceById(userId);
     }
 }

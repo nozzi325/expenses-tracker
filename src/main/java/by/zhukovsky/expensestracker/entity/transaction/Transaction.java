@@ -41,7 +41,12 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(TransactionType type, double amount, LocalDate date, String description, User user, Category category) {
+    public Transaction(TransactionType type,
+                       double amount,
+                       LocalDate date,
+                       String description,
+                       User user,
+                       Category category) {
         this.type = type;
         this.amount = amount;
         this.date = date;
