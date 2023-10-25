@@ -1,6 +1,7 @@
 package by.zhukovsky.expensestracker.controller;
 
 import by.zhukovsky.expensestracker.dto.request.RegistrationRequest;
+import by.zhukovsky.expensestracker.dto.response.RegistrationResponse;
 import by.zhukovsky.expensestracker.service.register.RegistrationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,14 +22,19 @@ public class RegistrationController {
     }
 
     @PostMapping
-    public ResponseEntity<String> register(@RequestBody RegistrationRequest request) {
+    public ResponseEntity<RegistrationResponse> register(@RequestBody RegistrationRequest request) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(registrationService.registerUser(request));
     }
 
     @GetMapping("/confirm")
-    public ResponseEntity<String> confirm(@RequestParam("token") String token) {
+    public ResponseEntity<RegistrationResponse> confirm(@RequestParam("token") String token) {
         return ResponseEntity.ok(registrationService.confirmToken(token));
+    }
+
+    @GetMapping("/regenerate-token")
+    public ResponseEntity<RegistrationResponse> regenerateToken(@RequestParam("email") String email) {
+        return ResponseEntity.ok(registrationService.regenerateTokenForUser(email));
     }
 }
