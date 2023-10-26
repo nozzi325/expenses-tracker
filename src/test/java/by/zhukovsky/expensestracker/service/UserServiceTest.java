@@ -11,8 +11,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -95,6 +101,34 @@ class UserServiceTest {
         when(userRepository.findByEmail(email)).thenReturn(Optional.empty());
 
         assertThrows(EntityNotFoundException.class, () -> userService.getUserByEmail(email));
+    }
+
+
+    @Test
+    void getAllUsers_WithValidPageable_ShouldReturnPageOfUsers() {
+        int pageSize = 10;
+        Pageable pageable = PageRequest.of(0, pageSize);
+        List<User> users = new ArrayList<>();
+        for (int i = 0; i < pageSize; i++) {
+            users.add(new User());
+        }
+        Page<User> pageOfUsers = new PageImpl<>(users);
+
+        when(userRepository.findAll(pageable)).thenReturn(pageOfUsers);
+
+        Page<User> result = userService.getAllUsers(pageable);
+        assertEquals(pageOfUsers, result);
+    }
+
+    @Test
+    void getAllUsers_WithEmptyPageable_ShouldReturnEmptyPage() {
+        Pageable pageable = PageRequest.of(0, 10);
+        Page<User> emptyPage = Page.empty();
+
+        when(userRepository.findAll(pageable)).thenReturn(emptyPage);
+
+        Page<User> result = userService.getAllUsers(pageable);
+        assertEquals(emptyPage, result);
     }
 
     @Test
@@ -223,6 +257,48 @@ class UserServiceTest {
         assertEquals("OriginalLastName", updatedUser.getLastName());
         assertEquals("new@example.com", updatedUser.getEmail());
         assertEquals("originalPassword", updatedUser.getPassword());
+    }
+
+    @Test
+    void updateUser_WithInvalidEmail_ShouldThrowInvalidRequestException() {
+        Long userId = 1L;
+        User originalUser = new User();
+        originalUser.setFirstName("OriginalFirstName");
+        originalUser.setLastName("OriginalLastName");
+        originalUser.setEmail("original@example.com");
+        originalUser.setPassword("originalPassword");
+
+        UserUpdateRequest updateRequest = new UserUpdateRequest(
+                "OriginalFirstName",
+                "OriginalLastName",
+                "invalid_email",
+                "originalPassword"
+        );
+
+        when(userRepository.findById(userId)).thenReturn(Optional.of(originalUser));
+
+        assertThrows(InvalidRequestException.class, () -> userService.updateUser(userId, updateRequest));
+    }
+
+    @Test
+    void updateUser_WithExistingEmail_ShouldThrowEntityExistsException() {
+        Long userId = 1L;
+        User originalUser = new User();
+        originalUser.setFirstName("OriginalFirstName");
+        originalUser.setLastName("OriginalLastName");
+        originalUser.setEmail("original@example.com");
+        originalUser.setPassword("originalPassword");
+        UserUpdateRequest updateRequest = new UserUpdateRequest(
+                "NewFirstName",
+                "NewLastName",
+                "existing@example.com",
+                "newPassword"
+        );
+
+        when(userRepository.findById(userId)).thenReturn(Optional.of(originalUser));
+        when(userRepository.existsByEmailEqualsIgnoreCase(updateRequest.email())).thenReturn(true);
+
+        assertThrows(EntityExistsException.class, () -> userService.updateUser(userId, updateRequest));
     }
 
     @Test
