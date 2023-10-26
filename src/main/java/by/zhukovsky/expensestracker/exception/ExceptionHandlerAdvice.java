@@ -48,7 +48,6 @@ public class ExceptionHandlerAdvice {
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
-
     private ErrorResponse createErrorResponse(String message) {
         logger.error(message);
         return new ErrorResponse(message, LocalDateTime.now());
