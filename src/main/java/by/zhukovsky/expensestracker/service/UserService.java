@@ -4,6 +4,7 @@ import by.zhukovsky.expensestracker.dto.request.UserUpdateRequest;
 import by.zhukovsky.expensestracker.entity.user.User;
 import by.zhukovsky.expensestracker.exception.InvalidRequestException;
 import by.zhukovsky.expensestracker.repository.UserRepository;
+import by.zhukovsky.expensestracker.utils.EmailValidator;
 import by.zhukovsky.expensestracker.utils.ExceptionHandlingUtils;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
@@ -58,6 +59,9 @@ public class UserService {
             fieldsChanged = true;
         }
         if (!originalUser.getEmail().equals(updateRequest.email())) {
+            if (!EmailValidator.isValidEmail(updateRequest.email())) {
+                throw new InvalidRequestException("Invalid email address: " + updateRequest.email());
+            }
             if (userRepository.existsByEmailEqualsIgnoreCase(updateRequest.email())) {
                 ExceptionHandlingUtils.handleEntityAlreadyExists("Email", updateRequest.email());
             }
