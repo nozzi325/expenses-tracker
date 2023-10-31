@@ -56,6 +56,18 @@ class TransactionServiceTest {
     }
 
     @Test
+    void getAllTransactions_ShouldReturnAllTransactions() {
+        Pageable pageable = PageRequest.of(0, 10);
+        Page<Transaction> mockPage = Page.empty();
+
+        when(transactionRepository.findAll(pageable)).thenReturn(mockPage);
+
+        Page<Transaction> result = transactionService.getAllTransactions(pageable);
+
+        assertEquals(mockPage, result);
+    }
+
+    @Test
     void createTransaction_ShouldCreateTransaction() {
         TransactionRequest request = new TransactionRequest(
                 TransactionType.INCOME,
@@ -274,7 +286,7 @@ class TransactionServiceTest {
         when(transactionRepository.findByUserIdAndCategoryId(userId, categoryId, pageable))
                 .thenReturn(Page.empty());
 
-        Page<Transaction> result = transactionService.getTransactionsForUser(
+        transactionService.getTransactionsForUser(
                 userId,
                 pageable,
                 null,
@@ -316,7 +328,7 @@ class TransactionServiceTest {
         when(userService.existsById(userId)).thenReturn(true);
         when(transactionRepository.findByUserId(userId, pageable)).thenReturn(Page.empty());
 
-        Page<Transaction> result = transactionService.getTransactionsForUser(
+        transactionService.getTransactionsForUser(
                 userId,
                 pageable,
                 null,
@@ -338,7 +350,7 @@ class TransactionServiceTest {
         when(transactionRepository.findByUserIdAndCategoryId(userId, categoryId, pageable))
                 .thenReturn(Page.empty());
 
-        Page<Transaction> result = transactionService.getTransactionsForUser(
+        transactionService.getTransactionsForUser(
                 userId,
                 pageable,
                 null,
@@ -358,7 +370,7 @@ class TransactionServiceTest {
         when(userService.existsById(userId)).thenReturn(true);
         when(transactionRepository.findByUserId(userId, pageable)).thenReturn(Page.empty());
 
-        Page<Transaction> result = transactionService.getTransactionsForUser(
+        transactionService.getTransactionsForUser(
                 userId,
                 pageable,
                 null,
