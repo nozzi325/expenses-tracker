@@ -48,7 +48,9 @@ public class RegistrationService {
 
         emailService.send(request.email(), link);
 
-        return new RegistrationResponse("User registered. Please check your email for confirmation and account activation", true);
+        return new RegistrationResponse(
+                "User registered. Please check your email for confirmation and account activation",
+                true);
     }
 
     @Transactional
@@ -65,7 +67,7 @@ public class RegistrationService {
         if (expiredAt.isBefore(LocalDateTime.now())) {
             return new RegistrationResponse("Token has expired." +
                     "You can request a new confirmation token by clicking the 'Resend Confirmation Email' button.",
-                    true);
+                    false);
         }
 
         confirmationTokenService.confirmToken(confirmationToken);
