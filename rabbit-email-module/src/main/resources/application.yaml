@@ -1,0 +1,29 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: rabbit-email-app
+  mail:
+    host: localhost
+    port: 1025
+    username: ${MAIL_USER}
+    password: ${MAIL_PASSWORD}
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: ${RABBITMQ_USER}
+    password: ${RABBITMQ_PASSWORD}
+    queues:
+      registration-mail: registration_mail
+
+properties:
+  mail:
+    smtp:
+      ssl:
+        trust: "*"
+      auth: true
+      starttls:
+        enable: true
+      connectiontimeout: 5000
+      timeout: 3000
+      writetimeout: 5000

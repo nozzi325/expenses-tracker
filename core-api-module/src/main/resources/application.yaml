@@ -1,0 +1,31 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: expenses-app
+  datasource:
+    url: jdbc:postgresql://localhost:5432/expenses
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
+    generate-ddl: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: ${RABBITMQ_USER}
+    password: ${RABBITMQ_PASSWORD}
+    queues:
+      registration-mail: registration_mail
+
+secret:
+  jwt:
+    secretKey: ${JWT_SECRET_KEY}
+    issuer: ${JWT_ISSUER}
+    tokenValidityDays: ${JWT_VALIDITY_DAYS}
