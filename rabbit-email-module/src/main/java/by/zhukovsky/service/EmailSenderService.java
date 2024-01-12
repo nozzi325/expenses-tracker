@@ -14,6 +14,7 @@ public class EmailSenderService {
     private static final Logger LOGGER = LoggerFactory.getLogger(EmailSenderService.class);
     private static final String FROM_ADDRESS = "andrew-app@test.com";
     private static final String SUBJECT = "Email confirmation";
+
     private final JavaMailSender mailSender;
 
     public EmailSenderService(JavaMailSender mailSender) {
@@ -25,16 +26,17 @@ public class EmailSenderService {
         try {
             MimeMessage mimeMessage = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
-            String emailContent = buildEmailBody(confirmationLink);
+            String emailBody = buildEmailBody(confirmationLink);
 
-            helper.setText(emailContent, true);
+            helper.setText(emailBody, true);
             helper.setTo(to);
             helper.setSubject(SUBJECT);
             helper.setFrom(FROM_ADDRESS);
 
             mailSender.send(mimeMessage);
+            LOGGER.info("Email sent successfully to: {}", to);
         } catch (MessagingException e) {
-            LOGGER.error("Failed to send email", e);
+            LOGGER.error("Failed to send email to: {}", to, e);
             throw new IllegalStateException("Failed to send email", e);
         }
     }
