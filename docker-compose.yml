@@ -29,6 +29,8 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
 
 networks:
   postgres:
@@ -37,3 +39,4 @@ networks:
 volumes:
   postgres:
   pgadmin:
+  rabbitmq_data:
