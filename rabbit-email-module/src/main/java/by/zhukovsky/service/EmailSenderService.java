@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 public class EmailSenderService {
     private static final Logger LOGGER = LoggerFactory.getLogger(EmailSenderService.class);
 
-    @Value("${from.address}")
+    @Value("${email.from}")
     private String fromAddress;
 
     @Value("${email.subject}")
