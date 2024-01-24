@@ -27,3 +27,7 @@ properties:
       connectiontimeout: 5000
       timeout: 3000
       writetimeout: 5000
+
+email:
+  from: ${EMAIL_FROM}
+  subject: Email Confirmation
